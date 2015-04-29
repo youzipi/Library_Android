@@ -25,6 +25,8 @@ class DataUtil{
                     HashMap<String, Object> map = new HashMap<>();
                     map.put("index", jsonObject.getString("index"));
                     map.put("title", jsonObject.getString("title"));
+                    map.put("id", jsonObject.getString("id"));
+                    map.put("pub", jsonObject.getString("pub"));
                     list.add(map);
                 }
             }

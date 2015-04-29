@@ -40,8 +40,8 @@ public class SearchAction extends Thread{
     private JSONArray data;
     public void upload(){
         Log.i("status", "upload");
-//        String uri = "http://library-58635.coding.io/q/";
-        String uri = "https://mjlugs-8080-cujriy.box.myide.io/q/";
+        String uri = "http://library-58635.coding.io/q/";
+//        String uri = "https://mjlugs-8080-cujriy.box.myide.io/q/";
         HttpPost httpRequest = new HttpPost(uri);
         params.add(new BasicNameValuePair("keyword", keyword));
         Log.i("keyword", keyword);
