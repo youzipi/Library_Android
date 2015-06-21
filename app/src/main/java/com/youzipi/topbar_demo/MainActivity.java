@@ -21,12 +21,21 @@ public class MainActivity extends ActionBarActivity {
 
     private void initAll() {
         Button searchButton = (Button)findViewById(R.id.search_button);
+        Button starButton = (Button)findViewById(R.id.star_button);
 
         searchButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this,SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+        starButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this,StarActivity.class);
                 startActivity(intent);
             }
         });

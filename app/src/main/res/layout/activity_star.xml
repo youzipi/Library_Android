@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.youzipi.topbar_demo.Topbar
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#ff549c3b"
+        android:text="@string/hello_world"
+        custom:leftBackground="#666"
+        custom:leftColor="#FFFFFF"
+        custom:leftText="SEARCH"
+        custom:rightBackground="#666"
+
+        custom:rightColor="#FFFFFF"
+        custom:rightText="MAIN"
+        custom:titleText="STAR"
+        custom:titleTextColor="#111"
+        custom:titleTextSize="10sp">
+
+    </com.youzipi.topbar_demo.Topbar>
+    <TextView
+        android:id="@id/list_view_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#333" />
+
+    <ListView
+        android:id="@id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants" />
+
+
+</LinearLayout>

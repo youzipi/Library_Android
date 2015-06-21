@@ -11,6 +11,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,49 +24,43 @@ import java.util.List;
 /**
  * Created by youzipi on 2015/4/27.
  */
-public class SearchAction extends Thread {
+public class DetailAction extends Thread{
     private List<NameValuePair> params = new ArrayList<NameValuePair>();
-    private String keyword;
+    private String id;
     private Handler handler;
 
-    public SearchAction(Handler handler, String keyword) {
+    public DetailAction(Handler handler, String id) {
         this.handler = handler;
-        this.keyword = keyword;
+        this.id = id;
     }
-
-    private JSONArray data;
-
-    public void upload() {
+    private JSONObject data;
+    public void upload(){
         Log.i("status", "upload");
-        String uri = "http://library-58635.coding.io/api/v1/q?keyword=" + keyword;
-//        String uri = "https://mjlugs-8080-cujriy.box.myide.io/q/";
+        String uri = "http://library-58635.coding.io/api/v1/detail/"+id;
         HttpGet httpRequest = new HttpGet(uri);
-//        params.add(new BasicNameValuePair("keyword", keyword));
-        Log.i("keyword", keyword);
+        Log.i("id", id);
         try {
-//            httpRequest.setParams(params);
             Log.i("keyword", String.valueOf(httpRequest.getRequestLine()));
-//            Log.i("keyword", "request: " +EntityUtils.toString(httpRequest.getEntity()));
             HttpResponse httpResponse = new DefaultHttpClient().execute(httpRequest);
 
             if (httpResponse.getStatusLine().getStatusCode() == 200) {
                 httpResponse.getEntity();
-                HttpEntity entity = httpResponse.getEntity();
-                InputStream is = entity.getContent();
+                HttpEntity entity=httpResponse.getEntity();
+                InputStream is=entity.getContent();
                 Log.i("status", "entity.getContent(): " + is);
                 //下面是读取数据的过程
-                BufferedReader br = new BufferedReader(new InputStreamReader(is));
-                String line = null;
-                StringBuffer sb = new StringBuffer();
-                while ((line = br.readLine()) != null) {
+                BufferedReader br=new BufferedReader(new InputStreamReader(is));
+                String line=null;
+                StringBuilder sb=new StringBuilder();
+                while((line=br.readLine())!=null){
                     sb.append(line);
                 }
                 String result = sb.toString();
                 Log.i("status", "result: " + result);
-                data = new JSONArray(result);
+                data = new JSONObject(result);
                 Log.i("status", "data: " + data);
 
-                Message msg = new Message();
+                Message msg  = new Message();
                 msg.obj = result;
                 handler.sendMessage(msg);
             } else {

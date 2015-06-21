@@ -4,6 +4,7 @@ package com.youzipi.topbar_demo;
 import android.app.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,6 +23,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 
 public class SearchActivity extends Activity implements OnItemClickListener {
@@ -46,7 +49,7 @@ public class SearchActivity extends Activity implements OnItemClickListener {
         describe = (TextView)findViewById(R.id.list_view_title);
         listView = (ListView)findViewById(R.id.list_view);
         describe.setText("Book_list");
-        arrayList = new ArrayList<String>();
+        arrayList = new ArrayList<>();
         arrayList.add("向之所欣");
         arrayList.add("俯仰之间");
         arrayList.add("已为陈迹");
@@ -62,7 +65,7 @@ public class SearchActivity extends Activity implements OnItemClickListener {
             @Override
             public void onClick(View view) {
                 String keyword = editText.getText().toString();
-                arrayList = new ArrayList<String>();
+                arrayList = new ArrayList<>();
                 SearchAction searchAction = new SearchAction(myHandler,keyword);
                 searchAction.start();
                 arrayList.add(keyword);
@@ -76,7 +79,6 @@ public class SearchActivity extends Activity implements OnItemClickListener {
         myHandler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
-                // TODO Auto-generated method stub
                 super.handleMessage(msg);
                 List<HashMap<String,Object>> list = DataUtil.getListData(msg.obj.toString());
                 Log.v("MyHandler", "msg.toString"+msg.obj.toString());
@@ -96,9 +98,16 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String item = listView.getItemAtPosition(position).toString();
+        Map item = (Map) listView.getItemAtPosition(position);
+//        String item = listView.getItemAtPosition(position).toString();
         Log.v("onclick", "item:"+item);
-        Toast.makeText(context,item,Toast.LENGTH_LONG).show();
+        Toast.makeText(context,item.toString(),Toast.LENGTH_LONG).show();
+        Toast.makeText(context,item.get("link").toString(),Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(SearchActivity.this, DetailActivity.class);
+
+        intent.putExtra("id", item.get("link").toString());
+        startActivity(intent);
+
 
     }
 }
